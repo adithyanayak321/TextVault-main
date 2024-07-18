@@ -1,0 +1,47 @@
+<!-- /views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ... (your existing head content) ... -->
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <div class="wrapper index-wrapper">
+      <div class="header">Text Vault</div>
+      <div class="index-mid">
+        <div class="commands-section">
+          <!-- <p class="index-text" ">
+            NoteShare, designed to facilitate the seamless sharing of text-based
+            content on the internet.
+          </p> -->
+          
+
+          <!-- button -->
+          <div class="button-outer">
+            <p class=" new-text" style="color: aliceblue;">
+              Create a note 
+            </p>
+            <div class="index-main-button index-new-button"><%- include("buttons.ejs") %></div>
+          </div>
+          <div class="button-outer">
+            <p class=" new-text" style="color: aliceblue;">
+              Short the Long URL 
+            </p>
+            <a href="/url-short" class="shorten-url btn" style="margin-top: 30px;">Shorten URL</a>
+          </div>
+        </div>
+        <!-- <div>
+          <p class="index-text">
+            Enter any URL and unique custom name, then a custom link will be
+            created which when is clicked will redirect to original URL
+          </p>
+        </div> -->
+    <p class="api-title">API</p>
+        <div class="front-api">$ curl -X POST -H "Content-Type: application/json" -d '{"value": "Write Note here"}' http://textvault.xyz/api/generate-url</div>
+        
+      </div>
+    </div>
+  </body>
+</html>

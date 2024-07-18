@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ... (your existing head content) ... -->
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        
+          <div class="code-display-mid">
+            <%- include("buttons.ejs", { id: locals.id }) %>
+            <button class="btn copy-btn shorten-url" onclick="copyURL()">Copy URL</button>
+            <a class="btn copy-btn shorten-url" href="/shorten-url/<%= locals.id %>">Shorten URL</a>
+        
+            <pre class="textArea" style="color:black">
+            <code class="code-display-text <%= locals.language ? `language-${locals.language}` : "" %>" id="code-display"><%= code %></code>
+        </pre>
+            <% if (locals.expiryTimestamp) { %>
+                <p>Expires at: <%= locals.expiryTimestamp.toLocaleString() %>
+                </p>
+                <% } %>
+                    <p class="count">Note Views: <%= locals.mainURLAccessCount %>
+                    </p>
+                    
+</div>
+    </div>
+
+    <!-- JavaScript to copy URL to clipboard -->
+    <script>
+        function copyURL() {
+            var textArea = document.createElement("textarea");
+            textArea.value = window.location.href;
+            document.body.appendChild(textArea);
+            // Select the text in the text area
+            textArea.select();
+            // Execute the copy command
+            document.execCommand('copy');
+            // Remove the text area from the document
+            document.body.removeChild(textArea);
+            // Optionally, provide some user feedback (e.g., alert)
+            alert('URL copied to clipboard!');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/5.0.0/autosize.min.js"
+    integrity="sha512-zibtOTbkMuTivXGk5b8yJFGLIB1jF90NuV7gwNcVWL3xZx/I1HdkXU2pCZhadsuaS5HMUzabvRqK4WmWeKrwUg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="/save" method="POST" onsubmit="return validateForm()">
+    <div class="wrapper">
+      <%- include("buttons.ejs", { canSave: true }) %>
+        <input type="number" name="customExpiry" class="customTimer" placeholder="Custom Expiry (minutes)"
+          oninput="validateCustomExpiry(this)" />
+        <div class="textarea-wrapper">
+          <textarea autofocus name="value" class="textArea" placeholder="Max Word Limit is 150">
+<%= locals.value %></textarea>
+        </div>
+    </div>
+  </form>
+  <script>
+    autosize(document.querySelector(".textArea"));
+    function validateForm() {
+      const textarea = document.querySelector(".textArea");
+      const wordCount = textarea.value.trim().split(/\s+/).length;
+      if (wordCount > 150) {
+        alert("Exceeded maximum word limit (150 words).");
+        return false;
+      }
+      return true;
+    }
+
+    function validateCustomExpiry(input) {
+      let value = parseInt(input.value, 10);
+      if (isNaN(value) || value < 0) {
+        input.value = ""; 
+      } else {
+        const maxMinutes = 2 * 365 * 24 * 60;
+        input.value = Math.min(value, maxMinutes);
+      }
+    }
+  </script>
+</body>
+
+</html>
